@@ -134,24 +134,6 @@ class ApplicationAPP_DATAUnserializeException extends Exception
     return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
   }
 }
-/*
-class CheckSolrAvailability
-{
-  private static _classInstance = null;
-  private static _SolrIsAvailable = true;
-
-  private function __construct($SolrEnabled, $SolrHost, $SolrInstance)
-  {
-    // define solr availability
-    $this->_solrIsEnabled = $SolrEnabled;
-    $this->_solrHost = $SolrHost;
-    $this->_solrInstance = $SolrInstance;
-  }
-
-  public function getInstance(){
-    if()
-  }
-}*/
 
 /**
  * Implementation to display application data in the PMOS2 grids using Solr
