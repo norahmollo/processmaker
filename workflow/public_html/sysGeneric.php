@@ -12,7 +12,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. BaseCaseTrackerObjectPeerSee the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
@@ -26,6 +26,7 @@
  * bootstrap - ProcessMaker Bootstrap
  * this file is used initialize main variables, redirect and dispatch all requests
  */
+
 // Defining the PATH_SEP constant, he we are defining if the the path separator symbol will be '\\' or '/'
 define( 'PATH_SEP', '/' );
 
@@ -510,6 +511,9 @@ Bootstrap::registerClass('CaseTrackerPeer',     PATH_HOME . "engine/classes/mode
 Bootstrap::registerClass('BaseCaseTrackerObject',PATH_HOME . "engine/classes/model/om/BaseCaseTrackerObject.php");
 Bootstrap::registerClass('CaseTrackerObject',    PATH_HOME . "engine/classes/model/CaseTrackerObject.php");
 
+Bootstrap::registerClass('BaseCaseTrackerObjectPeer',PATH_HOME . "engine/classes/model/om/BaseCaseTrackerObjectPeer.php");
+Bootstrap::registerClass('CaseTrackerObjectPeer',    PATH_HOME . "engine/classes/model/CaseTrackerObjectPeer.php");
+
 Bootstrap::registerClass('BaseConfiguration',   PATH_HOME . "engine/classes/model/om/BaseConfiguration.php");
 Bootstrap::registerClass('Configuration',       PATH_HOME . "engine/classes/model/Configuration.php");
 
@@ -538,6 +542,12 @@ Bootstrap::registerClass('Gateway',            PATH_HOME . "engine/classes/model
 Bootstrap::registerClass('BaseGroupUser',      PATH_HOME . "engine/classes/model/om/BaseGroupUser.php");
 Bootstrap::registerClass('Groupwf',            PATH_HOME . "engine/classes/model/Groupwf.php");
 Bootstrap::registerClass('GroupUser',          PATH_HOME . "engine/classes/model/GroupUser.php");
+
+Bootstrap::registerClass('BaseGroupUserPeer',  PATH_HOME . "engine/classes/model/om/BaseGroupUserPeer.php");
+Bootstrap::registerClass('GroupUserPeer',      PATH_HOME . "engine/classes/model/GroupUserPeer.php");
+
+Bootstrap::registerClass('BaseGroupwfPeer',    PATH_HOME . "engine/classes/model/om/BaseGroupwfPeer.php");
+Bootstrap::registerClass('GroupwfPeer',        PATH_HOME . "engine/classes/model/GroupwfPeer.php");
 
 Bootstrap::registerClass('BaseInputDocumentPeer',PATH_HOME . 'engine/classes/model/om/BaseInputDocumentPeer.php');
 Bootstrap::registerClass('InputDocumentPeer',  PATH_HOME . 'engine/classes/model/InputDocumentPeer.php');
@@ -579,6 +589,9 @@ Bootstrap::registerClass('ReportTablePeer',     PATH_HOME . "engine/classes/mode
 
 Bootstrap::registerClass('BaseReportVar',       PATH_HOME . "engine/classes/model/om/BaseReportVar.php");
 Bootstrap::registerClass('ReportVar',           PATH_HOME . "engine/classes/model/ReportVar.php");
+
+Bootstrap::registerClass('BaseReportVarPeer',   PATH_HOME . "engine/classes/model/om/BaseReportVarPeer.php");
+Bootstrap::registerClass('ReportVarPeer',       PATH_HOME . "engine/classes/model/ReportVarPeer.php");
 
 Bootstrap::registerClass('BaseRoute',           PATH_HOME . "engine/classes/model/om/BaseRoute.php");
 Bootstrap::registerClass('Route',               PATH_HOME . "engine/classes/model/Route.php");
