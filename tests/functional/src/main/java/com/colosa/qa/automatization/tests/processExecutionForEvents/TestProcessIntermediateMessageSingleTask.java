@@ -43,7 +43,7 @@ public class TestProcessIntermediateMessageSingleTask{
 		arrayData[2].fieldValue = "12323";
 		arrayData[3].fieldPath = "form[fecha]";
 		arrayData[3].fieldFindType = FieldKeyType.ID;
-		arrayData[3].fieldType = FieldType.TEXTBOX;
+		arrayData[3].fieldType = FieldType.READONLY;
 		arrayData[3].fieldValue = "2012-12-04";
 		arrayData[4].fieldPath = "form[guardar]";
 		arrayData[4].fieldFindType = FieldKeyType.ID;
@@ -54,10 +54,10 @@ public class TestProcessIntermediateMessageSingleTask{
 		Assert.assertTrue(Pages.InputDocProcess().continuebtn());
 		Pages.Main().logout();
 
-	} 
+	/*} 
 
 	@Test
-	public void continueCase() throws FileNotFoundException, IOException, Exception{
+	public void continueCase() throws FileNotFoundException, IOException, Exception{*/
 
 		String eventStatus= "";
 		Pages.Login().gotoUrl();
@@ -65,24 +65,24 @@ public class TestProcessIntermediateMessageSingleTask{
 		Pages.Main().goHome();
 		Pages.Main().goAdmin();		
 		Pages.Admin().goToLogs();
-		eventStatus = Pages.Admin().eventStatus(caseNum);
+		eventStatus = Pages.Admin().eventStatus(caseNum);		
 		Assert.assertEquals("CLOSE", eventStatus);
 		Pages.Main().goHome();
 		Pages.Home().openCase(caseNum);
-		FormFieldData[] arrayData = new FormFieldData[1];
-		arrayData[0] = new FormFieldData();
-		arrayData[0].fieldPath = "form[guardar]";
-		arrayData[0].fieldFindType = FieldKeyType.ID;
-		arrayData[0].fieldType = FieldType.BUTTON;
-		arrayData[0].fieldValue = "";
+		FormFieldData[] arrayData2 = new FormFieldData[1];
+		arrayData2[0] = new FormFieldData();
+		arrayData2[0].fieldPath = "form[guardar]";
+		arrayData2[0].fieldFindType = FieldKeyType.ID;
+		arrayData2[0].fieldType = FieldType.BUTTON;
+		arrayData2[0].fieldValue = "";
 		Pages.InputDocProcess().openCaseFrame();
-		Assert.assertTrue(FormFiller.formFillElements(arrayData));
+		Assert.assertTrue(FormFiller.formFillElements(arrayData2));
 		Assert.assertTrue(Pages.InputDocProcess().continuebtn());
 		Pages.Main().logout();
-	}
+	/*}
 
 	@Test
-	public void continueCase2() throws FileNotFoundException, IOException, Exception{
+	public void continueCase2() throws FileNotFoundException, IOException, Exception{*/
 
 		Pages.Login().gotoUrl();
 		Pages.Login().loginUser("admin", "admin", "");

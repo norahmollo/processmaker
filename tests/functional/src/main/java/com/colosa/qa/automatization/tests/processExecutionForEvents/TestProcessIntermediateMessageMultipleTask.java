@@ -48,10 +48,10 @@ public class TestProcessIntermediateMessageMultipleTask{
 		Assert.assertTrue(Pages.InputDocProcess().continuebtn());
 		Pages.Main().logout();
 
-	}
+	/*}
 
 	@Test
-	public void continueCase() throws FileNotFoundException, IOException, Exception{
+	public void continueCase() throws FileNotFoundException, IOException, Exception{*/
 		String eventStatus= "";
 		Pages.Login().gotoUrl();
 		Pages.Login().loginUser("hector", "sample", "");
@@ -62,40 +62,40 @@ public class TestProcessIntermediateMessageMultipleTask{
 		Assert.assertEquals("CLOSE", eventStatus);
 		Pages.Main().goHome();
 		Pages.Home().openCase(caseNum);
-		FormFieldData[] arrayData = new FormFieldData[1];
-		arrayData[0] = new FormFieldData();
-		arrayData[0].fieldPath = "form[guardar]";
-		arrayData[0].fieldFindType = FieldKeyType.ID;
-		arrayData[0].fieldType = FieldType.BUTTON;
-		arrayData[0].fieldValue = "";
+		FormFieldData[] arrayData2 = new FormFieldData[1];
+		arrayData2[0] = new FormFieldData();
+		arrayData2[0].fieldPath = "form[guardar]";
+		arrayData2[0].fieldFindType = FieldKeyType.ID;
+		arrayData2[0].fieldType = FieldType.BUTTON;
+		arrayData2[0].fieldValue = "";
 		Pages.InputDocProcess().openCaseFrame();
-		Assert.assertTrue(FormFiller.formFillElements(arrayData));
+		Assert.assertTrue(FormFiller.formFillElements(arrayData2));
 		Assert.assertTrue(Pages.InputDocProcess().continuebtn());
 		Pages.Main().logout();
-	}
+	/*}
 
 	@Test
-	public void continueCase2() throws FileNotFoundException, IOException, Exception{
+	public void continueCase2() throws FileNotFoundException, IOException, Exception{*/
 
 		Pages.Login().gotoUrl();
 		Pages.Login().loginUser("admin", "admin", "");
 		Pages.Main().goHome();
 		Pages.Home().openCase(caseNum);
-		FormFieldData[] arrayData = new FormFieldData[1];
-		arrayData[0] = new FormFieldData();
-		arrayData[0].fieldPath = "form[guardar]";
-		arrayData[0].fieldFindType = FieldKeyType.ID;
-		arrayData[0].fieldType = FieldType.BUTTON;
-		arrayData[0].fieldValue = "";
+		FormFieldData[] arrayData3 = new FormFieldData[1];
+		arrayData3[0] = new FormFieldData();
+		arrayData3[0].fieldPath = "form[guardar]";
+		arrayData3[0].fieldFindType = FieldKeyType.ID;
+		arrayData3[0].fieldType = FieldType.BUTTON;
+		arrayData3[0].fieldValue = "";
 		Pages.InputDocProcess().openCaseFrame();
-		Assert.assertTrue(FormFiller.formFillElements(arrayData));
+		Assert.assertTrue(FormFiller.formFillElements(arrayData3));
 		Assert.assertTrue(Pages.InputDocProcess().continuebtn());
 		Pages.Main().logout();
-	}
+	/*}
 
 
 	@Test
-	public void continueCase3() throws FileNotFoundException, IOException, Exception{
+	public void continueCase3() throws FileNotFoundException, IOException, Exception{*/
 
 		Pages.Login().gotoUrl();
 		Pages.Login().loginUser("ronald", "sample", "");
