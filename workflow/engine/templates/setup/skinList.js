@@ -524,14 +524,18 @@ newSkin = function(){
               PMExt.notify(_('ID_SKINS'),_('ID_SKIN_SUCCESS_CREATE'));
             },
             failure: function(form, action) {
-              Ext.getCmp("newDialog").destroy();
-
-              if( !action.result ) {
-                Ext.MessageBox.alert("error", action.response.responseText);
+              if (typeof(action.failureType) != 'undefined') {
+                Ext.MessageBox.alert("error", _('ID_REQUIRED_FIELDS_ERROR'));
+                newDialog.getEl().unmask();
                 return;
+              } else {
+                Ext.getCmp("newDialog").destroy();
+                if( !action.result ) {
+                  Ext.MessageBox.alert("error", action.response.responseText);
+                  return;
+                }
+                Ext.MessageBox.alert("error", action.result.error);
               }
-              Ext.MessageBox.alert("error", action.result.error);
-
             },
             scope: Ext.getCmp("newform"),
             // add some vars to the request, similar to hidden fields
@@ -777,6 +781,17 @@ deleteSkin = function(){
           );
 }
 
+function createCookie (name, value, time) {
+    if (time) {
+        var date = new Date();
+        date.setTime(date.getTime()+(time*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    } else {
+        var expires = "";
+    }
+    document.cookie = name+"="+value+expires+"; path=/"+SYS_SYS;
+}
+
 function changeSkin(newSkin,currentSkin){
   Ext.Ajax.request({
       url: 'clearCompiledAjax',
@@ -787,6 +802,7 @@ function changeSkin(newSkin,currentSkin){
         var response = Ext.util.JSON.decode(r.responseText);
         if (response.success) {
           currentLocation = top.location.href;
+          createCookie ('workspaceSkin', newSkin, '1');
           if (currentSkin.substring(0,2) != 'ux') {
             if (newSkin.substring(0,2) == 'ux') {
               newLocation = currentLocation.replace("/" + currentSkin + "/setup/", "/" + newSkin + "/");

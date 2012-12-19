@@ -38,12 +38,25 @@ class AppProxy extends HttpProxyController
         if (!isset($_SESSION['PROCESS']) && !isset($httpData->pro)) {
             $caseLoad = $case->loadCase($appUid);
             $httpData->pro = $caseLoad['PRO_UID'];
+        }    
+        
+        if(!isset($httpData->pro) || empty($httpData->pro) )
+        {
+            $proUid = $_SESSION['PROCESS'];
+        } else {
+            $proUid = $httpData->pro;
         }
-
-        $proUid = (!isset($httpData->pro)) ? $_SESSION['PROCESS'] : $httpData->pro;
-        $tasUid = (!isset($httpData->tas)) ? ((isset($_SESSION['TASK'])) ? $_SESSION['TASK'] : '') : $httpData->tas;
+        
+        if(!isset($httpData->tas) || empty($httpData->tas))
+        {
+            $tasUid = $_SESSION['TASK'];
+        } else {
+            $tasUid = $httpData->tas;
+        }
+        //$proUid = (!isset($httpData->pro)) ? $_SESSION['PROCESS'] : $httpData->pro;
+        //$tasUid = (!isset($httpData->tas)) ? ((isset($_SESSION['TASK'])) ? $_SESSION['TASK'] : '') : $httpData->tas;
         $usrUid = $_SESSION['USER_LOGGED'];
-
+        
         $respView = $case->getAllObjectsFrom( $proUid, $appUid, $tasUid, $usrUid, 'VIEW' );
         $respBlock = $case->getAllObjectsFrom( $proUid, $appUid, $tasUid, $usrUid, 'BLOCK' );
 
@@ -52,7 +65,7 @@ class AppProxy extends HttpProxyController
             );
         }
 
-        require_once ("classes/model/AppNotes.php");
+        //require_once ("classes/model/AppNotes.php");
 
         if (! isset( $appUid )) {
             throw new Exception( 'Can\'t resolve the Apllication ID for this request.' );
@@ -61,6 +74,10 @@ class AppProxy extends HttpProxyController
         $usrUid = isset( $_SESSION['USER_LOGGED'] ) ? $_SESSION['USER_LOGGED'] : "";
         $appNotes = new AppNotes();
         $response = $appNotes->getNotesList( $appUid, '', $httpData->start, $httpData->limit );
+
+        require_once ("classes/model/Content.php");
+        $content = new Content();
+        $response['array']['appTitle'] = $content->load('APP_TITLE', '', $appUid, SYS_LANG);
 
         return $response['array'];
     }
@@ -73,7 +90,7 @@ class AppProxy extends HttpProxyController
      */
     function postNote ($httpData)
     {
-        require_once ("classes/model/AppNotes.php");
+        //require_once ("classes/model/AppNotes.php");
 
         //extract(getExtJSParams());
         if (isset( $httpData->appUid ) && trim( $httpData->appUid ) != "") {
@@ -91,7 +108,7 @@ class AppProxy extends HttpProxyController
 
         //Disabling the controller response because we handle a special behavior
         $this->setSendResponse(false);
-
+        
         //Add note case
         $appNote = new AppNotes();
         $response = $appNote->addCaseNote($appUid, $usrUid, $noteContent, intval($httpData->swSendMail));
