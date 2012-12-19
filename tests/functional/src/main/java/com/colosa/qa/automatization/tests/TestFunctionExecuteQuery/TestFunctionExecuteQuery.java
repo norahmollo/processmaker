@@ -61,7 +61,8 @@ public class TestFunctionExecuteQuery{
 		fieldArray2[2].fieldValue = "";
 		FormFiller.formFillElements(fieldArray2);
 		//Form with the updates
-		Assert.assertEquals(fieldArray2[0].fieldValue, Utils.getTextBoxValue("form[firstNameUpdate]"));
+		Assert.assertEquals(fieldArray2[0].fieldValue, Value.getValue(FieldKeyType.ID, "form[firstNameUpdate]"));
+		Assert.assertEquals(fieldArray2[1].fieldValue, Value.getValue(FieldKeyType.ID, "form[lastNameUpdate]"));
 		FormFieldData[] fieldArray3 = new FormFieldData[1];
 		fieldArray3[0] = new FormFieldData();
 		fieldArray3[0].fieldPath = "form[continue]";
