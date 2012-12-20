@@ -37,10 +37,4 @@ public class Utils{
 		return randomString;
 	}
 
-	public static String getTextBoxValue (String idTextBox)throws FileNotFoundException, IOException, Exception{
-		WebElement elem = null;
-		elem = Browser.driver().findElement(By.id(idTextBox));
-		return elem.getText().trim();
-	}
-
 }
