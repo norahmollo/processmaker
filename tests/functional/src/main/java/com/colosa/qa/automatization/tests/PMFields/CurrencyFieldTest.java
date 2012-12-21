@@ -1,4 +1,4 @@
-package com.colosa.qa.automatization.tests.login;
+package com.colosa.qa.automatization.tests.PMFields;
 
 import org.junit.Assert;
 import org.junit.After;
