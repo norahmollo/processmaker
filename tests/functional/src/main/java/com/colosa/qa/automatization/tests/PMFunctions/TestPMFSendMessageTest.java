@@ -1,4 +1,4 @@
-package com.colosa.qa.automatization.tests.triggersProcess;
+package com.colosa.qa.automatization.tests.PMFunctions;
 
 import java.lang.Exception;
 import java.util.List;
@@ -77,18 +77,14 @@ public class TestPMFSendMessageTest{
 		    fieldArray1[0].fieldValue="";
 				
 				String fieldSEND = Pages.DynaformExecution().getFieldProperty("SEND","value");
-				
-			  FormFiller.formFillElements(fieldArray1);
-		    Assert.assertEquals("Mail not sent", fieldSEND, "1");
+				Assert.assertEquals("Mail not sent", fieldSEND, "1");
+		    FormFiller.formFillElements(fieldArray1);
 		    Pages.InputDocProcess().continuebtn();
-    		
-    		//Pages.Main().goAdmin();
-    		//Pages.Admin().goToLogs();
-    		//Pages.Admin().gotoEmails();
-		}
+    }
 
     @After
     public void cleanup(){
         Browser.close();
     }
+    
 }
