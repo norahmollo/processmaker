@@ -243,6 +243,7 @@ var dynaformEditor={
             return false;
         }
         if (res==0) {
+            document.getElementById('_dynaformsList_').options[document.getElementById('_dynaformsList_').selectedIndex].text = getField('DYN_TITLE', 'dynaforms_Properties').value;
             alert(G_STRINGS.ID_SAVED);
         } else {
             if (typeof(res.innerHTML) == 'undefined') {
@@ -263,50 +264,6 @@ var dynaformEditor={
     }
     url='dynaforms_Saveas';
     popupWindow('Save as', url+'?DYN_UID='+this.dynUid+'&AA='+this.A , 500, 350);
-  },
-  importForm:function(){
-    panelImportDyna = new leimnud.module.panel();
-    panelImportDyna.options={
-      limit    : true,
-      size     : {w:410,h:160},
-      position : {x:0,y:0,center:true},
-      title    : '',
-      theme    : 'processmaker',
-      statusBar: false,
-      control  : {drag:false,resize:true,close:false},
-      fx       : {opacity:true,rolled:false,modal:true}
-    };
-    panelImportDyna.setStyle = {modal: {
-      backgroundColor: 'white'
-    }};
-    panelImportDyna.make();
-    panelImportDyna.addContent('<div id="importAjax" align="center"><img src="/images/ext/default/grid/loading.gif" /></div>');
-    var oRPC = new leimnud.module.rpc.xmlhttp({
-      url   : '../dynaforms/fieldsHandlerAjax',
-      async : false,
-      method: 'POST',
-      args  : 'request=showImportForm' + '&DYN_UID=' + this.dynUid
-    });
-    oRPC.make();
-    document.getElementById('importAjax').style.display = 'none';
-    panelImportDyna.addContent(oRPC.xmlhttp.responseText);
-  },
-  import:function(uidDynaSelect){
-    document.getElementById('importAjax').style.display = 'block';
-    document.getElementById('importForm').style.display = 'none';
-    var oRPC = new leimnud.module.rpc.xmlhttp({
-      url   : '../dynaforms/fieldsHandlerAjax',
-      async : false,
-      method: 'POST',
-      args  : 'request=import' + '&DYN_UID=' + this.dynUid + '&FILE=' + uidDynaSelect
-    });
-    oRPC.make();
-    resp = oRPC.xmlhttp.responseText;
-    if (resp == 'success') {
-        location.reload(true);
-    } else {
-        alert("Error: " + resp);
-    }
   },
   close:function()
   {
@@ -473,7 +430,7 @@ var dynaformEditor={
         parserfile: ["parsexml.js", "parsecss.js", "tokenizejavascript.js", "parsejavascript.js",
                      "../contrib/php/js/tokenizephp.js", "../contrib/php/js/parsephp.js",
                      "../contrib/php/js/parsephphtmlmixed.js"],
-        stylesheet: ["css/xmlcolors.css", "css/jscolors.css", "css/csscolors.css", "contrib/php/css/phpcolors.css"],
+        stylesheet: ["css/xmlcolors.css", "css/jscolors.css"],
         path: "js/",
         lineNumbers: true,
         continuousScanning: 500
@@ -605,7 +562,7 @@ var dynaformEditor={
     delete myScripts;
   },
   refresh_htmlcode:function()
-  {    
+  {
     var dynaformEditorHTML = this.views["htmlcode"];
     if (this.htmlEditorLoaded)
     {
@@ -844,6 +801,8 @@ var dynaformEditor={
   },
   restoreHTML:function()
   {
+      var htmlContent = this.ajax.restore_html(this.A);
+      tinyMCE.activeEditor.execCommand('mceSetContent', false, htmlContent);
 //    window._editorHTML.doc.body.innerHTML = this.ajax.restore_html(this.A);
 //    html_html2();
 //    html2_html();

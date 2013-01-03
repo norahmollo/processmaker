@@ -2070,7 +2070,7 @@ class Processes
      * @param string $sProUid
      * @return $aDynaform array
      */
-    public function getObjectPermissionRows ($sProUid)
+    public function getObjectPermissionRows ($sProUid, &$oData)
     {
         // by erik
         try {
@@ -2084,8 +2084,12 @@ class Processes
             while ($aRow = $oDataset->getRow()) {
                 $o = new ObjectPermission();
                 $oPermissions[] = $o->Load( $aRow['OP_UID'] );
+
+                $oGroupwf = new Groupwf();
+                $oData->groupwfs[] = $oGroupwf->Load( $aRow['USR_UID'] );
                 $oDataset->next();
             }
+
             return $oPermissions;
         } catch (Exception $oError) {
             throw ($oError);
@@ -2093,6 +2097,31 @@ class Processes
     }
     #@!neyek
 
+    /**
+     * Get Object Permission Rows from a Process
+     *
+     * @param string $sProUid
+     * @return $aDynaform array
+     */
+    public function getGroupwfSupervisor ($sProUid, &$oData)
+    {
+        try {
+            $oCriteria = new Criteria( 'workflow' );
+            $oCriteria->add(ProcessUserPeer::PRO_UID,  $sProUid );
+            $oCriteria->add(ProcessUserPeer::PU_TYPE,  'GROUP_SUPERVISOR' );
+            $oDataset = ProcessUserPeer::doSelectRS( $oCriteria );
+            $oDataset->setFetchmode( ResultSet::FETCHMODE_ASSOC );
+            $oDataset->next();
+            while ($aRow = $oDataset->getRow()) {
+                $oGroupwf = new Groupwf();
+                $oData->groupwfs[] = $oGroupwf->Load( $aRow['USR_UID'] );
+                $oDataset->next();
+            }
+            return true;
+        } catch (Exception $oError) {
+            throw ($oError);
+        }
+    }
 
     /**
      * Create Dynaform Rows for a Process form an array
@@ -2235,6 +2264,7 @@ class Processes
                 $aGroupwf[] = $oGroupwf->Load( $aRow['GRP_UID'] );
                 $oDataset->next();
             }
+
             return $aGroupwf;
         } catch (Exception $oError) {
             throw ($oError);
@@ -2570,7 +2600,7 @@ class Processes
         $oData->reportTables = $this->getReportTablesRows( $sProUid );
         $oData->reportTablesVars = $this->getReportTablesVarsRows( $sProUid );
         $oData->stepSupervisor = $this->getStepSupervisorRows( $sProUid );
-        $oData->objectPermissions = $this->getObjectPermissionRows( $sProUid );
+        $oData->objectPermissions = $this->getObjectPermissionRows( $sProUid, $oData);
         $oData->subProcess = $this->getSubProcessRow( $sProUid );
         $oData->caseTracker = $this->getCaseTrackerRow( $sProUid );
         $oData->caseTrackerObject = $this->getCaseTrackerObjectRow( $sProUid );
@@ -2579,6 +2609,7 @@ class Processes
         $oData->event = $this->getEventRow( $sProUid );
         $oData->caseScheduler = $this->getCaseSchedulerRow( $sProUid );
         $oData->processCategory = $this->getProcessCategoryRow( $sProUid );
+        $this->getGroupwfSupervisor( $sProUid, $oData);
 
         //krumo ($oData);die;
         //$oJSON = new Services_JSON();
@@ -3131,13 +3162,13 @@ class Processes
         if ($sIdentifier == 'MAILTEMPL') {
             $sIdentifier = 1;
             while (! feof( $fp ) && is_numeric( $sIdentifier )) {
-                $sIdentifier = fread( $fp, 9 ); //reading the size of $filename
+                $sIdentifier = fread( $fp, 9 );  //reading the size of $filename
                 if (is_numeric( $sIdentifier )) {
                     $fsFileName = intval( $sIdentifier ); //reading the size of $filename
                     if ($fsFileName > 0) {
                         $sFileName = fread( $fp, $fsFileName ); //reading filename string
                     }
-                    $fsContent = function_exists( 'mb_strlen' ) ? mb_strlen( fread( $fp, 9 ) ) : strlen( fread( $fp, 9 ) ); //reading the size of $Content
+                    $fsContent = intval( fread ( $fp, 9)) or 0; //reading the size of $Content
                     if ($fsContent > 0) {
                         $fileContent = fread( $fp, $fsContent ); //reading string $XmlContent
                         $newFileName = $pathMailTem . $sFileName;
@@ -3159,7 +3190,7 @@ class Processes
                     if ($fsFileName > 0) {
                         $sFileName = fread( $fp, $fsFileName ); //reading filename string
                     }
-                    $fsContent = function_exists( 'mb_strlen' ) ? mb_strlen( fread( $fp, 9 ) ) : strlen( fread( $fp, 9 ) ); //reading the size of $Content
+                    $fsContent = intval( fread ( $fp, 9)) or 0; //reading the size of $Content
                     if ($fsContent > 0) {
                         $fileContent = fread( $fp, $fsContent ); //reading string $XmlContent
                         $newFileName = $pathPublic . $sFileName;
