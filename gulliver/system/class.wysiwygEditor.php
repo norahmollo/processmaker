@@ -24,7 +24,7 @@
  * Coral Gables, FL, 33134, USA, or email info@colosa.com.
  *
  */
-//XmlForm_Field_DVEditor
+
 /**
  * XmlForm_Field_HTML class definition
  * It is useful to see dynaforms how are built
@@ -35,20 +35,20 @@
  * @copyright (C) 2012 by Colosa Development Team.
  *
  */
+
 class XmlForm_Field_WYSIWYG_EDITOR extends XmlForm_Field
 {
-    //public $toolbarSet = '';
     public $width = '100%';
     public $height = '300';
     public $defaultValue = '<br/>';
     public $editorType = '';
     public $processID = '';
+    public $dynUID = '';
+
     /**
      * render function returns the HTML definition for the Dynaform Field
      *
      * @author
-     *
-     *
      * @access public
      * @param string $value
      * @param string $owner
@@ -67,8 +67,6 @@ class XmlForm_Field_WYSIWYG_EDITOR extends XmlForm_Field
      * the Dynaform Field configuration, attributes, and additional stuff.
      *
      * @author
-     *
-     *
      * @access public
      * @param string $element
      * @return string
@@ -76,58 +74,63 @@ class XmlForm_Field_WYSIWYG_EDITOR extends XmlForm_Field
      */
     public function attachEvents ($element)
     {
-
-        $editorDefinition = 'tinyMCE.baseURL = "/js/tinymce/jscripts/tiny_mce"; ';
+        $editorDefinition  = 'tinyMCE.baseURL = "/js/tinymce/jscripts/tiny_mce"; ';
+        $editorDefinition .= 'var domainURL   = "/sys'.SYS_SYS.'/'.SYS_LANG.'/'.SYS_SKIN.'/"';
 
         switch ($this->editorType){
             case 'EMAIL_TEMPLATE':
-                $editorDefinition .= '
+                $editorDefinition.= '
                 // is necessary the process uid variable in order to load the picker correctly
                 var formProcessID = document.getElementById("form[pro_uid]").value;
                 tinyMCE.init({
                     theme   : "advanced",
-                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,autosave,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras,pmSimpleUploader,pmVariablePicker",
+                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras,pmSimpleUploader,pmVariablePicker,style",
                     mode    : "specific_textareas",
                     editor_selector : "tmceEditor",
-                    width   : 760,
+                    width   : "760",
                     height  : "'.$this->height.'",
 
                     theme_advanced_buttons1 : "pmSimpleUploader,|,pmVariablePicker,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,cut,copy,paste,|,bullist,numlist,|,outdent,indent,blockquote",
-                    theme_advanced_buttons2 : "tablecontrols,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
+                    theme_advanced_buttons2 : "tablecontrols,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,styleprops,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
+                    popup_css : "/js/tinymce/jscripts/tiny_mce/themes/advanced/skins/default/dialog.css",
                     oninit: function (){
-                        tinyMCE.activeEditor.processID =formProcessID;
+                        tinyMCE.activeEditor.processID = formProcessID;
+                        tinyMCE.activeEditor.domainURL = domainURL;
+
                     },
                     onchange_callback: function(inst) {
-                		if(inst.isDirty()) {
-                			inst.save();
-                		}
-                		return true;
-                	},
+                        if(inst.isDirty()) {
+                            inst.save();
+                        }
+                        return true;
+                    },
                     handle_event_callback : function(e) {
-                		if(this.isDirty()) {
-                			this.save();
-                		}
-                		return true;
-                	}
+                        if(this.isDirty()) {
+                            this.save();
+                        }
+                        return true;
+                    }
                 });
                 ';
                 break;
             case 'OUTPUT_DOCUMENT':
-                $editorDefinition .= '
+                $editorDefinition.= '
                 // is necessary the process uid variable in order to load the picker correctly
                 var formProcessID = document.getElementById("form[PRO_UID]").value;
                 tinyMCE.init({
                     theme   : "advanced",
-                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,autosave,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras,pmSimpleUploader,pmVariablePicker",
+                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras,pmSimpleUploader,pmVariablePicker,pmGrids,style",
                     mode    : "specific_textareas",
                     editor_selector : "tmceEditor",
                     width   : "770",
                     height  : "305",
-
-                    theme_advanced_buttons1 : "pmSimpleUploader,|,pmVariablePicker,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,cut,copy,paste,|,bullist,numlist,|,outdent,indent,blockquote",
-                    theme_advanced_buttons2 : "tablecontrols,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
-                    oninit: function (){
-                        tinyMCE.activeEditor.processID=formProcessID;
+                    verify_html : false,
+                    theme_advanced_buttons1 : "pmSimpleUploader,|,pmVariablePicker,|,pmGrids,|,bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,cut,copy,paste,|,bullist,numlist,|,outdent,indent,blockquote",
+                    theme_advanced_buttons2 : "tablecontrols,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,styleprops,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
+                    popup_css : "/js/tinymce/jscripts/tiny_mce/themes/advanced/skins/default/dialog.css",
+                    oninit: function () {
+                        tinyMCE.activeEditor.processID = formProcessID;
+                        tinyMCE.activeEditor.domainURL = domainURL;
                     },
                     onchange_callback: function(inst) {
                         if(inst.isDirty()) {
@@ -140,30 +143,38 @@ class XmlForm_Field_WYSIWYG_EDITOR extends XmlForm_Field
                 break;
 
             case 'DYNAFORM_TEMPLATE':
-                $editorDefinition .= '
+                $editorDefinition.= '
+                var formProcessID = document.getElementById("form[PRO_UID]").value;
+                var formDynaformID = document.getElementById("form[DYN_UID]").value;
                 tinyMCE.init({
                     theme   : "advanced",
-                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,autosave,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,spellchecker,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras",
+                    plugins : "advhr,advimage,advlink,advlist,autolink,autoresize,contextmenu,directionality,emotions,example,example_dependency,fullpage,fullscreen,iespell,inlinepopups,insertdatetime,layer,legacyoutput,lists,media,nonbreaking,noneditable,pagebreak,paste,preview,print,save,searchreplace,style,tabfocus,table,template,visualblocks,visualchars,wordcount,xhtmlxtras,style,table,noneditable,pmFieldPicker",
                     mode    : "specific_textareas",
                     //apply_source_formatting : true,
                     //remove_linebreaks: false,
                     editor_selector : "tmceEditor",
-                    width   : "700",
-                    height  : "300",
-                    theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,cut,copy,paste,|,bullist,numlist",
-                    theme_advanced_buttons2 : "outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
-
+                    width   : \'100%\',
+                    height  : \'300\',
+                    theme_advanced_buttons1 : "bold,italic,underline,|,justifyleft,justifycenter,justifyright,justifyfull,|,fontselect,fontsizeselect,|,cut,copy,paste,|,bullist,numlist,|,pmFieldPicker",
+                    theme_advanced_buttons2 : "tablecontrols,|outdent,indent,blockquote,|,undo,redo,|,link,unlink,image,|,forecolor,backcolor,styleprops,|,hr,removeformat,visualaid,|,sub,sup,|,ltr,rtl,|,code",
+                    popup_css : "/js/tinymce/jscripts/tiny_mce/themes/advanced/skins/default/dialog.css",
                     skin : "o2k7",
                     skin_variant : "silver",
-
+                    content_css : "/css/classic.css",
                     template_external_list_url : "js/template_list.js",
                     external_link_list_url : "js/link_list.js",
                     external_image_list_url : "js/image_list.js",
                     media_external_list_url : "js/media_list.js",
-
+                    extended_valid_elements : "div[*],script[language|type|src]",
+//                    noneditable_regexp: /[^"|^:|^\']{(.*?)}/g,
                     template_replace_values : {
                         username : "Some User",
                         staffid : "991234"
+                    },
+                    oninit: function () {
+                        tinyMCE.activeEditor.domainURL = domainURL;
+                        tinyMCE.activeEditor.dynUID    = formDynaformID;
+                        tinyMCE.activeEditor.proUID    = formProcessID;
                     },
                     handle_event_callback : function(e) {
                         if(this.isDirty()) {
@@ -176,21 +187,24 @@ class XmlForm_Field_WYSIWYG_EDITOR extends XmlForm_Field
                 ';
                 break;
             default:
-                $editorDefinition .= '
+                $editorDefinition.= '
                     tinyMCE.init({
-                        theme   : "advanced",
-                        plugins : "fullpage",
-                        mode    : "specific_textareas",
-                        editor_selector : "tmceEditor",
-                        width   : "'. $this->width. '",
-                        height  : "'. $this->height. '",
-                        theme_advanced_buttons3_add : "fullpage",
-                        handle_event_callback : function(e) {
-                                if(this.isDirty()) {
-                                        this.save();
-                                }
-                                return true;
-                        }
+                        // General options
+                        mode : "textareas",
+                        theme : "advanced",
+                        plugins : "autolink,lists,spellchecker,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,imagemanager,filemanager",
+
+                        // Theme options
+                        theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,styleselect,formatselect,fontselect,fontsizeselect",
+                        theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+                        theme_advanced_buttons3 : "tablecontrols,|,hr,removeformat,visualaid,|,sub,sup,|,charmap,emotions,iespell,media,advhr,|,print,|,ltr,rtl,|,fullscreen",
+                        theme_advanced_buttons4 : "insertlayer,moveforward,movebackward,absolute,|,styleprops,spellchecker,|,cite,abbr,acronym,del,ins,attribs,|,visualchars,nonbreaking,template,blockquote,pagebreak,|,insertfile,insertimage",
+                        theme_advanced_toolbar_location : "top",
+                        theme_advanced_toolbar_align : "left",
+                        theme_advanced_statusbar_location : "bottom",
+                        theme_advanced_resizing : true,
+                        width: "100%",
+                        height: "400"
                     });
                 ';
                 break;
