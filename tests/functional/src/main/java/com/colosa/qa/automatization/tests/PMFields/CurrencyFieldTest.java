@@ -1,16 +1,20 @@
 package com.colosa.qa.automatization.tests.PMFields;
+
 import org.junit.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Test;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import com.colosa.qa.automatization.pages.*;
 import com.colosa.qa.automatization.common.*;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class CurrencyFieldTest{
+
 @Test
  	public void runProcess() throws Exception{
  		Pages.Login().gotoUrl();
