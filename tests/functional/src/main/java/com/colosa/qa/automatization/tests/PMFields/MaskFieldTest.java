@@ -19,7 +19,6 @@ public class MaskFieldTest{
     Pages.Main().goHome();
     int casenumber=Pages.Home().startCase("TestMask (Task 1)");
     openCaseFrame();
-    //Pages.openCase(casenumber);
     FormFieldData[] fieldArray=new FormFieldData[3];
 
     fieldArray[0]=new FormFieldData();
