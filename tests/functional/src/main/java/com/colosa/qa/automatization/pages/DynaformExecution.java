@@ -200,7 +200,7 @@ public class DynaformExecution extends Page {
         return;
     }    
 
-    public void setCheckBox(String checkGroup, String checkName) throws Exception{
+    public void setCheckBoxGroup(String checkGroup, String checkName) throws Exception{
         System.out.println("setCheckbox: " + checkGroup + "[" + checkName + "]");
         String checkFieldName = checkGroup + "][" + checkName;
         FieldType fieldType;
@@ -212,7 +212,7 @@ public class DynaformExecution extends Page {
         this.setFieldValue(element, "", fieldType);
     }   
 
-    public void setRadioButton(String radioGroup, String radioName) throws Exception{
+    public void setRadioButtonGroup(String radioGroup, String radioName) throws Exception{
         System.out.println("setRadioButton: " + radioGroup + "[" + radioName + "]");
         String radioButtonName = radioGroup + "][" + radioName;
         FieldType fieldType;
@@ -612,7 +612,7 @@ public class DynaformExecution extends Page {
         return elementText;
     }
 
-    public String getRadioButtonSelected(String radioGroup) throws Exception{
+    public String getRadioButtonGroupSelected(String radioGroup) throws Exception{
         System.out.println("getRadioButtonSelected: " + radioGroup);
         String radioGroupName = "form["+ radioGroup + "]";
         FieldType fieldType;
@@ -631,7 +631,7 @@ public class DynaformExecution extends Page {
 
     }
 
-    public List<String> getCheckBoxSelected(String checkGroup) throws Exception{
+    public List<String> getCheckBoxGroupSelected(String checkGroup) throws Exception{
 
         System.out.println("getCheckBoxSelected: " + checkGroup);
         String checkGroupName = "form["+ checkGroup + "][]";

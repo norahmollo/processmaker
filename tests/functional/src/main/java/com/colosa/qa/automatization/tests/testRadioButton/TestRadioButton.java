@@ -22,12 +22,12 @@ public class TestRadioButton{
 		Pages.Main().goHome();	
 		caseNum = Pages.Home().startCase("Test RB and CB (Task 1)");
 		Pages.DynaformExecution().intoDynaform();
-		Pages.DynaformExecution().setRadioButton("Radio1", "Val2");
-		Pages.DynaformExecution().setRadioButton("Radio1", "Val3");
-		Pages.DynaformExecution().setCheckBox("chkgroup", "Val2");
-		Pages.DynaformExecution().setCheckBox("chkgroup", "Val3");
+		Pages.DynaformExecution().setRadioButtonGroup("Radio1", "Val2");
+		Pages.DynaformExecution().setRadioButtonGroup("Radio1", "Val3");
+		Pages.DynaformExecution().setCheckBoxGroup("chkgroup", "Val2");
+		Pages.DynaformExecution().setCheckBoxGroup("chkgroup", "Val3");
 		//Pages.DynaformExecution().getCheckBoxSelected("chkgroup");
-		List<String> chGroup = Pages.DynaformExecution().getCheckBoxSelected("chkgroup");
+		List<String> chGroup = Pages.DynaformExecution().getCheckBoxGroupSelected("chkgroup");
 
 		Iterator it = chGroup.iterator();
 		while(it.hasNext())
@@ -36,7 +36,7 @@ public class TestRadioButton{
 
         	System.out.println("Value :"+value);
 		}
-		String rbGroup = Pages.DynaformExecution().getRadioButtonSelected("Radio1");
+		String rbGroup = Pages.DynaformExecution().getRadioButtonGroupSelected("Radio1");
 		System.out.println("RadioButton selected:"+rbGroup);
 
 	}
