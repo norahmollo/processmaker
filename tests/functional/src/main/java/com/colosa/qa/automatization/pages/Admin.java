@@ -152,13 +152,13 @@ public class Admin extends Main{
         Browser.driver().switchTo().frame("adminFrame");
         Browser.driver().switchTo().frame("setup-frame");
         ExtJSGrid grid = new ExtJSGrid(Browser.driver().findElement(By.id("emailsGrid")), Browser.driver());
-        String status;
+        String emailStatus;
         WebElement row = grid.getRowByColumnValue("#", Integer.toString(numCase));
         if(row==null)
             throw new Exception("Case # "+Integer.toString(numCase)+" not found in Email Logs");
-        status = row.findElement(By.xpath("table/tbody/tr/td[16]/div")).getText().trim();
+        emailStatus = row.findElement(By.xpath("table/tbody/tr/td[16]/div")).getText().trim();
         Browser.driver().switchTo().defaultContent();
-        return status;
+        return emailStatus;
     }
 
 
