@@ -103,5 +103,22 @@ public class Pages{
 		return debugExecution;
 	}
 
+	public static CronExecute CronExecute() throws Exception{
+		CronExecute cronExecute = new CronExecute();
+
+		return cronExecute;
+	}
+
+	public static WebEntry WebEntry() throws Exception{
+		WebEntry webEntry = new WebEntry();
+
+		return webEntry;
+	}
+
+	public static CaseTracker CaseTracker() throws Exception{
+		CaseTracker caseTracker = new CaseTracker();
+
+		return caseTracker;
+	}
 
 }

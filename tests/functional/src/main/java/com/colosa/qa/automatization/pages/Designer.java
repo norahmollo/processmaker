@@ -226,6 +226,55 @@ public class Designer{
 		return designPanel.findElement(By.xpath("div[@class='processmap_task___processmaker'][div[1]='"+taskName.trim()+"']"));
 	}
 
+	public String getTaskColorStatus(String taskName) throws Exception{
+		String getStyle;
+		WebElement designPanel = Browser.getElement("designer.webElement.designPanel");
+		WebElement task = designPanel.findElement(By.xpath("div[@class='processmap_task___processmaker'][div[1]='"+taskName.trim()+"']"));
+		getStyle = task.getAttribute("style");
+		String[] toArray = getStyle.split(";");
+		String colorStatus = toArray[3];
+		String returnStatus = "";
+		if(colorStatus.equals(" background-color: rgb(0, 102, 51)"))
+		{
+			returnStatus = "Completed Task";
+		}
+		if(colorStatus.equals(" background-color: rgb(255, 0, 0)"))
+		{
+			returnStatus = "Task in Progress";
+		}
+		if(colorStatus.equals(" background-color: rgb(147, 149, 152)"))
+		{
+			returnStatus = "Pending Task / Not Executed";
+		}		
+		return returnStatus;
+
+	}
+
+
+	public String getTaskColorStatusStage(String taskName) throws Exception{
+		String getStyle;
+		WebElement designPanel = Browser.getElement("designer.webElement.designPanelStageMap");
+		WebElement task = designPanel.findElement(By.xpath("div[@class='processmap_task___processmaker'][div[1]='"+taskName.trim()+"']"));
+		getStyle = task.getAttribute("style");
+		String[] toArray = getStyle.split(";");
+		String colorStatus = toArray[3];
+		String returnStatus = "";
+		if(colorStatus.equals(" background-color: rgb(0, 102, 51)"))
+		{
+			returnStatus = "Completed Task";
+		}
+		if(colorStatus.equals(" background-color: rgb(255, 0, 0)"))
+		{
+			returnStatus = "Task in Progress";
+		}
+		if(colorStatus.equals(" background-color: rgb(147, 149, 152)"))
+		{
+			returnStatus = "Pending Task / Not Executed";
+		}		
+		return returnStatus;
+
+	}
+
 	public void taskList() throws Exception{
 		taskNum++;
 		taskPath = "//div[@id='pm_target']/div[1]/div[1]/div[3]/div["+taskNum+"]";
@@ -457,5 +506,134 @@ public class Designer{
 
 	}
 
+	public void activeDebug(Boolean flagActiveDebug) throws Exception{
 
+        Actions action = new Actions(Browser.driver());
+        Browser.waitForElement(By.className("processmap_title___processmaker"),15);
+        WebElement gridPanel = Browser.driver().findElement(By.id("pm_target"));
+        action.contextClick(gridPanel).perform();
+
+        WebElement divContainer = Browser.driver().findElement(By.className("app_menuRight_container___processmaker"));
+        WebElement optionElement = divContainer.findElement(By.xpath("div[1]"));
+        optionElement.click();
+
+        WebElement checkDebug = Browser.driver().findElement(By.id("form[PRO_DEBUG]"));
+        WebElement submitButton = Browser.driver().findElement(By.id("form[SUBMIT]"));
+
+        Boolean checkedDebug = true;
+        if (checkDebug.getAttribute("checked") == null) {
+            checkedDebug = false;
+        }
+
+        if ( (!checkedDebug) && (flagActiveDebug) ) {
+            checkDebug.click();
+            submitButton.click();
+            System.out.println("Debug active :)");
+        } else if ( (checkedDebug) && (flagActiveDebug) ) {
+            System.out.println("Debug active :|");
+        } else if ( (!checkedDebug) && (!flagActiveDebug) ) {
+            System.out.println("Debug desactive :|");
+        } else if ( (checkedDebug) && (!flagActiveDebug) ) {
+            checkDebug.click();
+            submitButton.click();
+            System.out.println("Debug desactive :)");
+        }
+    }
+
+    public void showTitleCase(Boolean flagShowTitle) throws Exception{
+
+        Actions action = new Actions(Browser.driver());
+        Browser.waitForElement(By.className("processmap_title___processmaker"),15);
+        WebElement gridPanel = Browser.driver().findElement(By.id("pm_target"));
+        action.contextClick(gridPanel).perform();
+
+        WebElement divContainer = Browser.driver().findElement(By.className("app_menuRight_container___processmaker"));
+        WebElement optionElement = divContainer.findElement(By.xpath("div[1]"));
+        optionElement.click();
+
+        WebElement checkShowTitle = Browser.driver().findElement(By.id("form[PRO_SHOW_MESSAGE]"));
+        WebElement submitButton = Browser.driver().findElement(By.id("form[SUBMIT]"));
+
+        Boolean checkedHide = true;
+        if (checkShowTitle.getAttribute("checked") == null) {
+            checkedHide = false;
+        }
+
+        if ( (checkedHide) && (flagShowTitle) ) {
+            checkShowTitle.click();
+            submitButton.click();
+            System.out.println("Show title :)");
+        } else if ( (!checkedHide) && (flagShowTitle) ) {
+            System.out.println("Show title :|");
+        } else if ( (checkedHide) && (!flagShowTitle) ) {
+            System.out.println("Hide title :|");
+        } else if ( (!checkedHide) && (!flagShowTitle) ) {
+            checkShowTitle.click();
+            submitButton.click();
+            System.out.println("Hide title :)");
+        }
+    }
+
+    public void assignedPermission(String userAssigned, String typeAssigned) throws Exception{
+
+        Actions action = new Actions(Browser.driver());
+        Browser.waitForElement(By.className("processmap_title___processmaker"),15);
+        WebElement gridPanel = Browser.driver().findElement(By.id("pm_target"));
+        action.contextClick(gridPanel).perform();
+
+        WebElement divContainer = Browser.driver().findElement(By.className("app_menuRight_container___processmaker"));
+        WebElement optionElement = divContainer.findElement(By.xpath("div[11]"));
+		optionElement.click();
+
+		WebElement checkShowTitle = Browser.driver().findElement(By.id("form[MNU_ADD]"));
+		checkShowTitle.click();
+
+		WebElement selectGroup = Browser.driver().findElement(By.id("form[GROUP_USER]"));
+        Select selectListGroup = new Select(selectGroup);
+        selectListGroup.selectByVisibleText(userAssigned);
+
+        WebElement selectType = Browser.driver().findElement(By.id("form[OP_OBJ_TYPE]"));
+        Select selectListType = new Select(selectType);
+        selectListType.selectByVisibleText(typeAssigned);
+        
+		WebElement buttonCreate = Browser.driver().findElement(By.id("form[CREATE]"));
+		buttonCreate.click();
+    }
+
+    public void deleteAllPermission() throws Exception{
+
+        Actions action = new Actions(Browser.driver());
+        Browser.waitForElement(By.className("processmap_title___processmaker"),15);
+        WebElement gridPanel = Browser.driver().findElement(By.id("pm_target"));
+        action.contextClick(gridPanel).perform();
+
+        WebElement divContainer = Browser.driver().findElement(By.className("app_menuRight_container___processmaker"));
+        WebElement optionElement = divContainer.findElement(By.xpath("div[11]"));
+		optionElement.click();
+		deleteAllPermissionStep();
+    }
+
+    public void deleteAllPermissionStep() throws Exception{
+    	WebElement publisherNew = Browser.driver().findElement(By.xpath("/html/body/div"));
+    	List<WebElement> allA = publisherNew.findElements(By.tagName("a"));
+		for(WebElement aTag:allA)
+        {
+        	if ( (aTag.getAttribute("innerHTML").indexOf ("Delete") > -1 ) ) {
+				aTag.click();
+				Thread.sleep(1000);
+				List<WebElement> panelButtons = Browser.driver().findElements(By.className("panel_statusButtons___processmaker"));
+				for(WebElement buttonAccept:panelButtons)
+		        {
+		        	if ( buttonAccept.getAttribute("innerHTML").indexOf ("Accept") > -1 ) {
+		        		WebElement bAccept = buttonAccept.findElement(By.xpath("input"));
+		        		bAccept.click();
+		        		Thread.sleep(1000);
+		        		deleteAllPermissionStep();
+		        		break;
+		        	}
+		        }
+		        break;
+        	}
+        }
+    }
 }
