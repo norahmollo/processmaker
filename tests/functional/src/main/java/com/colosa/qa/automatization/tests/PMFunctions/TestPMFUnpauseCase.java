@@ -34,13 +34,13 @@ public class TestPMFUnpauseCase{
 		Pages.DynaformExecution().intoDynaform();
 		Assert.assertTrue("The button Continue does not exit in this form", Pages.InputDocProcess().continuebtn());	
 		Pages.Main().goHome();
-    	Pages.Home().gotoInbox();	
+    		Pages.Home().gotoInbox();	
 		Assert.assertTrue("The case does not exist in Inbox", Pages.Home().existCase(caseNum));
 		Pages.Home().openCase(caseNum);	
 		Pages.DynaformExecution().intoDynaform();
 		Assert.assertTrue("The button Continue does not exit in this form", Pages.InputDocProcess().continuebtn());	
 		Pages.Main().goHome();
-     	Pages.Home().gotoPaused();	
+     		Pages.Home().gotoPaused();	
   		Assert.assertFalse("The case exist in Paused", Pages.Home().existCase(caseNum-1));     								  
 		Pages.InputDocProcess().switchToDefault();
 		Pages.Main().logout();
