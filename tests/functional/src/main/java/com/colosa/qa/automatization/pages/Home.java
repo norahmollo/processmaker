@@ -240,24 +240,24 @@ public class Home extends Main{
 		Browser.driver().switchTo().frame("casesFrame");
 		Browser.driver().switchTo().frame("casesSubFrame");
 		
-		Thread.sleep(3000);
-		WebElement actionPanel = Browser.driver().findElement(By.xpath("//*[@id='navPanel']"));
-		WebElement actionMenu = actionPanel.findElement(By.xpath("//*[@id='actionMenu']"));
+		Thread.sleep(4000);
+		WebElement actionPanel = Browser.driver().findElement(By.id("navPanel"));
+		WebElement actionMenu = actionPanel.findElement(By.id("actionMenu"));
 		WebElement bAction = actionMenu.findElement(By.tagName("button"));
 		bAction.click(); 
 		
-		Thread.sleep(3000);
+		Thread.sleep(4000);
 		WebElement pauseCase = Browser.driver().findElement(By.xpath("/html/body/div[6]"));
 		WebElement pCase = pauseCase.findElement(By.tagName("span"));
 		pCase.click(); 
 		
-		Thread.sleep(3000);
+		Thread.sleep(4000);
 		WebElement pauseForm = Browser.driver().findElement(By.id("unpauseFrm"));
 		WebElement pauseButton = pauseForm.findElement(By.id("submitPauseCase"));
 		WebElement pauseClick = pauseButton.findElement(By.tagName("button"));
 		
 		pauseClick.click();
-		Thread.sleep(3000);
+		Thread.sleep(4000);
   }
 	
 	public boolean existCase(int numCase)throws Exception{
@@ -272,6 +272,21 @@ public class Home extends Main{
 		else
 			return true;
 	}
+	
+	public boolean caseStatus(int numCase, String statusCase)throws Exception{
+		ExtJSGrid grid;
+		Browser.driver().switchTo().frame("casesFrame");
+		Browser.driver().switchTo().frame("casesSubFrame");
+		grid = new ExtJSGrid(Browser.driver().findElement(By.id("casesGrid")), Browser.driver());
+		
+		WebElement row = grid.getRowByColumnsValue("#", "Status", Integer.toString(numCase), statusCase);
+		
+		if(row==null)
+			return false;
+		else
+			return true;
+	}
+	
 
 	public void goCaseSubFrame()throws Exception{
 		Browser.driver().switchTo().frame("casesFrame");
