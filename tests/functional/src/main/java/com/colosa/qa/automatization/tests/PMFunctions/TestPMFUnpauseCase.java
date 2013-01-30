@@ -29,7 +29,8 @@ public class TestPMFUnpauseCase{
 		Pages.Home().gotoPaused();
 		Assert.assertTrue("The case does not exist in Paused", Pages.Home().existCase(caseNum));
 		Pages.InputDocProcess().switchToDefault();
-		Pages.Main().goHome();	
+		Pages.Main().goHome();
+		//Init casa again	
 		caseNum = Pages.Home().startCase("PMFUnpauseCase (Init)");
 		Pages.DynaformExecution().intoDynaform();
 		Assert.assertTrue("The button Continue does not exit in this form", Pages.InputDocProcess().continuebtn());	
