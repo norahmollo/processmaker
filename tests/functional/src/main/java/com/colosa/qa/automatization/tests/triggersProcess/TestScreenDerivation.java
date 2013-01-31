@@ -27,7 +27,7 @@ public class TestScreenDerivation{
     public void runCase() throws Exception {
         // login the PM
         Pages.Login().gotoUrl();
-        Pages.Login().loginUser("admin","admin","cochalo");
+        Pages.Login().loginUser("admin","admin","workflow");
 
         // go tab home
         Pages.Main().goHome();
@@ -36,6 +36,7 @@ public class TestScreenDerivation{
         int numberNewCase = Pages.Home().startCase("Process Derivation Screen (Task 1)");
         
         // click to button submit
+	Pages.DynaformExecution().intoDynaform();
         Pages.DynaformExecution().setFieldValue("submit", "click");
 
         // get the value of field AFTER_DYNAFORM after the form

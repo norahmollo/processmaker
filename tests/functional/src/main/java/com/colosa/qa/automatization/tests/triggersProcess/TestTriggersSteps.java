@@ -27,7 +27,7 @@ public class TestTriggersSteps{
     public void runCase() throws Exception {
         // login the PM
         Pages.Login().gotoUrl();
-        Pages.Login().loginUser("admin","admin","cochalo");
+        Pages.Login().loginUser("admin","admin","workflow");
 
         Pages.Main().goDesigner();
         Pages.ProcessList().openProcess("Process Debug");
@@ -40,7 +40,7 @@ public class TestTriggersSteps{
         int numberNewCase = Pages.Home().startCase("Process Debug (Task 1)");
         
         // switch to frame the dynaform
-        //Pages.DynaformExecution().intoDynaform();
+        Pages.DynaformExecution().intoDynaform();
         Pages.DebugExecution().goTabVariables();
 
         String beforeDynaform = Pages.DebugExecution().getValue("BEFORE_DYNAFORM");
@@ -50,6 +50,7 @@ public class TestTriggersSteps{
         // trigger after the form working
         
         // get button submit
+        Pages.DynaformExecution().intoDynaform();
         WebElement buttonSUBMIT = Pages.DynaformExecution().getField("Submit");
 
         // click to button submit
@@ -63,6 +64,7 @@ public class TestTriggersSteps{
         // trigger after the form working
         
         // get button continue
+        Pages.DynaformExecution().intoDynaform();
         WebElement buttonContinue = Pages.DynaformExecution().getObject("//*[@id='publisherContent[2]']/div/input");
 
         // click to button continue
@@ -76,6 +78,7 @@ public class TestTriggersSteps{
         // trigger after the form working
         
         // get button continue
+        Pages.DynaformExecution().intoDynaform();
         WebElement buttonContinueSubmit = Pages.DynaformExecution().getObject("//*[@id='btnContinue']");
 
         // click to button continue
@@ -108,6 +111,6 @@ public class TestTriggersSteps{
 
     @After
     public void cleanup(){
-        //Browser.close();
+        Browser.close();
     }
 }
