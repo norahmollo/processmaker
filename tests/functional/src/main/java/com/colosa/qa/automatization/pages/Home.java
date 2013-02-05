@@ -205,7 +205,7 @@ public class Home extends Main{
         action.perform();
 	}
 
-	public void selectCase(int numCase)throws Exception{
+	public boolean selectCase(int numCase)throws Exception{
 		ExtJSGrid grid;
 		Actions action = new Actions(Browser.driver());
 		Browser.driver().switchTo().defaultContent();		
@@ -213,10 +213,15 @@ public class Home extends Main{
 		Browser.driver().switchTo().frame("casesSubFrame");
 		grid = new ExtJSGrid(Browser.driver().findElement(By.id("casesGrid")), Browser.driver());
 		WebElement row = grid.getRowByColumnValue("#", Integer.toString(numCase));
-		if(row==null)
+		if(row==null){
 			throw new Exception("Case # "+Integer.toString(numCase)+" not found in Inbox folder");
-		action.click(row.findElement(By.xpath("table/tbody/tr/td[div='"+Integer.toString(numCase)+"']/div")));
-		action.perform();
+		}
+		else{
+			action.click(row.findElement(By.xpath("table/tbody/tr/td[div='"+Integer.toString(numCase)+"']/div")));
+			action.perform();
+			return true;
+		}	
+		
   }
 
 	public void selectTasktoAssign(int numCase)throws Exception{
@@ -240,23 +245,24 @@ public class Home extends Main{
 		Browser.driver().switchTo().frame("casesFrame");
 		Browser.driver().switchTo().frame("casesSubFrame");
 		
-		Thread.sleep(3000);
-		WebElement actionPanel = Browser.driver().findElement(By.xpath("//*[@id='navPanel']"));
-		WebElement actionMenu = actionPanel.findElement(By.xpath("//*[@id='actionMenu']"));
+		Thread.sleep(4000);
+		WebElement actionPanel = Browser.driver().findElement(By.id("navPanel"));
+		WebElement actionMenu = actionPanel.findElement(By.id("actionMenu"));
 		WebElement bAction = actionMenu.findElement(By.tagName("button"));
 		bAction.click(); 
 		
-		Thread.sleep(3000);
-		WebElement pauseCase = Browser.driver().findElement(By.xpath("/html/body/div[5]/ul/li[1]/a"));
-		pauseCase.click(); 
+		Thread.sleep(4000);
+		WebElement pauseCase = Browser.driver().findElement(By.xpath("/html/body/div[6]"));
+		WebElement pCase = pauseCase.findElement(By.tagName("span"));
+		pCase.click(); 
 		
-		Thread.sleep(3000);
+		Thread.sleep(4000);
 		WebElement pauseForm = Browser.driver().findElement(By.id("unpauseFrm"));
 		WebElement pauseButton = pauseForm.findElement(By.id("submitPauseCase"));
 		WebElement pauseClick = pauseButton.findElement(By.tagName("button"));
 		
 		pauseClick.click();
-		Thread.sleep(3000);
+		Thread.sleep(4000);
   }
 	
 	public boolean existCase(int numCase)throws Exception{
