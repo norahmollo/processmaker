@@ -128,7 +128,7 @@ public class TestRedirectLogin{
       	Pages.InputDocProcess().switchToDefault();       
 		Assert.assertEquals("Enter search term", Value.getValue(FieldKeyType.ID, "txtSearch"));
      	Pages.InputDocProcess().switchToDefault();
- 		Pages.Main().goToUrl("http://127.0.0.1:8083/sysworkflow/en/classic/setup/main");  
+ 		Pages.Main().goToUrl("http://192.168.11.132/sysworkflow/en/classic/setup/main");  
         Pages.Admin().activePlugin("redirecLogin", false);  		  	
 		Pages.Main().logout();			
 	}
