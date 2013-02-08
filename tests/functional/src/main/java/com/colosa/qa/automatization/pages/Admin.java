@@ -67,10 +67,11 @@ public class Admin extends Main{
   			WebElement newPMT = divGridPMT.findElement(By.xpath("div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button"));
   			newPMT.click();
   			
-  			Thread.sleep(4000);
-  			WebElement newPMTable = Browser.driver().findElement(By.xpath("html/body/div[9]"));
+  			Thread.sleep(4000);			
+  			WebElement newPMTable = Browser.driver().findElement(By.xpath("html/body/div[8]/ul/li[1]"));
   			WebElement newPMTables = newPMTable.findElement(By.tagName("span"));
-				newPMTables.click();
+			
+			newPMTables.click();
 				
 				Thread.sleep(4000);
 				WebElement REP_TAB_NAME = Browser.driver().findElement(By.id("REP_TAB_NAME"));
