@@ -1,6 +1,7 @@
 package com.colosa.qa.automatization.pages;
 
 import java.io.*;
+
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.*;
 import com.itextpdf.text.pdf.PdfReader;

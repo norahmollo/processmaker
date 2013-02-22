@@ -21,7 +21,7 @@ import com.colosa.qa.automatization.common.controlOptions.ControlOptions;
 import com.colosa.qa.automatization.common.Browser;
 import com.colosa.qa.automatization.common.extJs.ExtJSGrid;
 
-public class TestPMTable{
+public class TestPMTableCreation{
 
     @Test
     public void runCase() throws Exception {
@@ -54,6 +54,10 @@ public class TestPMTable{
         FormFiller.formFillElements(fieldArray);
         Pages.InputDocProcess().continuebtn();
         
+        if( fieldRESULT != "0" ){
+	        Pages.Main().goAdmin();
+	        Pages.Admin().deletePMTable("TESTTABLE");
+      	}
         Pages.Main().goAdmin();
         Pages.Admin().newPMTable("TEST TABLE1","description Table");
         Pages.Admin().addField("ID","ID","VARCHAR","32",true,false,false);
@@ -61,18 +65,20 @@ public class TestPMTable{
         Pages.Admin().addField("DESCRIPCION","DESCRIPCION","VARCHAR","100",false,false,false);
         Pages.Admin().createPMTable();
         
-        Assert.assertTrue("Exist any space in Name Table", Pages.Admin().verifyPMTable("TESTTABLE"));
-        
-        
+        Assert.assertTrue("Exist any space in Name Table", Pages.Admin().verifyPMTable("TESTTABLE1"));
+        if(Pages.Admin().verifyPMTable("TESTTABLE1") == true) {
+        	Pages.Admin().deletePMTable("TESTTABLE1");
+        }        
         Pages.Admin().newPMTable("TESTTABLE3","description Table3");
         Pages.Admin().addField("ID","ID","VARCHAR","32",false,false,false);
         Pages.Admin().addField("NAME","NAME","","50",false,false,false);
         Pages.Admin().addField("DESCRIPCION","DESCRIPCION","VARCHAR","100",false,false,false);
         Pages.Admin().createPMTable();
-        
-        
+                
         Assert.assertEquals("Type Field should be defined in Table", false,Pages.Admin().verifyPMTable("TESTTABLE3"));
-        
+        if(Pages.Admin().verifyPMTable("TESTTABLE3") == true) {
+        	Pages.Admin().deletePMTable("TESTTABLE3");
+        } 
         Pages.Admin().newPMTable("TESTTABLE2","description Table2");
         Pages.Admin().addField("ID","ID","VARCHAR","32",false,false,false);
         Pages.Admin().addField("NAME","NAME","VARCHAR","50",false,false,false);
@@ -80,12 +86,14 @@ public class TestPMTable{
         Pages.Admin().createPMTable();
         
         Assert.assertEquals("Does not exist Primary Key field in Table", false,Pages.Admin().verifyPMTable("TESTTABLE2"));
-        
+    		if(Pages.Admin().verifyPMTable("TESTTABLE2") == true) {
+        	Pages.Admin().deletePMTable("TESTTABLE2");
+        } 
     }
-/*
+
     @After
     public void cleanup(){
         Browser.close();
     }
-*/    
+   
 }

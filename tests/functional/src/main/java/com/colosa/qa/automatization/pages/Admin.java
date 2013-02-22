@@ -66,9 +66,9 @@ public class Admin extends Main{
   			WebElement divGridPMT = Browser.driver().findElement(By.id("infoGrid"));
   			WebElement newPMT = divGridPMT.findElement(By.xpath("div[2]/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button"));
   			newPMT.click();
-  			//html/body/div[13]/ul/li/a
+  			
   			Thread.sleep(4000);
-  			WebElement newPMTable = Browser.driver().findElement(By.xpath("html/body/div[8]/ul/li"));
+  			WebElement newPMTable = Browser.driver().findElement(By.xpath("html/body/div[8]/ul/li/a"));
   			WebElement newPMTables = newPMTable.findElement(By.tagName("span"));
 				newPMTables.click();
 				
@@ -117,7 +117,6 @@ public class Admin extends Main{
   			  			
   			WebElement updateField = addFields.findElement(By.xpath("div/div/div/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[3]/div/div/table/tbody/tr/td/table/tbody/tr[2]/td[2]"));
   			updateField.click();
-  			Thread.sleep(3000);
   	}
   			
   	public static void createPMTable() throws Exception{		
@@ -147,6 +146,7 @@ public class Admin extends Main{
             if ( (divs.getAttribute("class").indexOf ("x-grid3-row") > -1) && 
                  (divs.getAttribute("innerHTML").indexOf (nameTable) > -1) ) {
                 flagExist = true;
+                
                 break;
             }
         }
@@ -154,7 +154,180 @@ public class Admin extends Main{
   			return flagExist;
   	}
   	
-  	//System.out.println("HTML " + newww.getAttribute("innerHTML"));
+  	public static void deletePMTable(String nameTable) throws Exception{		
+  			
+  			goToSettings();
+  			Thread.sleep(3000);
+        Browser.driver().switchTo().defaultContent();
+        Browser.driver().switchTo().frame("adminFrame");
+        
+        WebElement divPMT = Browser.driver().findElement(By.id("settings"));
+  			WebElement PMT = divPMT.findElement(By.xpath("//div/div/ul/div/li[11]"));
+  			PMT.click();
+  			
+        Browser.driver().switchTo().frame("setup-frame");
+        
+  			WebElement divFilas = Browser.driver().findElement(By.className("x-grid3-body"));
+        List<WebElement> divRows = divFilas.findElements(By.tagName("div"));
+        
+  			for(WebElement divs:divRows)
+        {
+            if ( (divs.getAttribute("class").indexOf ("x-grid3-row") > -1) && 
+                 (divs.getAttribute("innerHTML").indexOf (nameTable) > -1) ) {
+                divs.click();
+                Thread.sleep(2000);
+                WebElement divPMTable = Browser.driver().findElement(By.id("infoGrid"));
+                WebElement buttonsPMTable = divPMTable.findElement(By.xpath("div[2]/div"));
+                WebElement deletePMT = buttonsPMTable.findElement(By.xpath("div/table/tbody/tr/td/table/tbody/tr/td[3]/table/tbody/tr[2]/td[2]/em/button"));
+                deletePMT.click();
+                Thread.sleep(3000);
+                WebElement yesDelete = Browser.driver().findElement(By.xpath("/html/body/div[10]/div[2]/div[2]/div/div/div/div/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[2]/em/button"));
+                
+                yesDelete.click();
+                break;
+            }									 
+        }
+  	}
+  	
+  	public Boolean addDataPMTable(String nameTable, String data[] ) throws Exception{		
+  			goToSettings();
+  			Thread.sleep(3000);
+        Browser.driver().switchTo().defaultContent();
+        Browser.driver().switchTo().frame("adminFrame");
+        
+        WebElement divPMT = Browser.driver().findElement(By.id("settings"));
+  			WebElement PMT = divPMT.findElement(By.xpath("//div/div/ul/div/li[11]"));
+  			PMT.click();
+  			
+        Browser.driver().switchTo().frame("setup-frame");
+        
+  			WebElement divFilas = Browser.driver().findElement(By.className("x-grid3-body"));
+        List<WebElement> divRows = divFilas.findElements(By.tagName("div"));
+        Boolean flagAdd = false;
+  			for(WebElement divs:divRows)
+        {
+            if ( (divs.getAttribute("class").indexOf ("x-grid3-row") > -1) && 
+                 (divs.getAttribute("innerHTML").indexOf (nameTable) > -1) ) {
+                divs.click();
+                Thread.sleep(2000);
+                WebElement divPMTable = Browser.driver().findElement(By.id("infoGrid"));
+                WebElement buttonsPMTable = divPMTable.findElement(By.xpath("div[2]/div[1]"));
+                WebElement addData = buttonsPMTable.findElement(By.xpath("div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"));
+                                                   	                                                                                                                        
+                addData.click();                
+                Thread.sleep(2000);
+                
+                Browser.driver().switchTo().frame("mif-comp-1056");
+                WebElement iFrame = Browser.driver().findElement(By.id("infoGrid"));
+                WebElement addRow = iFrame.findElement(By.xpath("div/div/div/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button"));
+                addRow.click();
+                
+                WebElement addId = iFrame.findElement(By.xpath("div/div[2]/div/div[1]/div[2]/div[2]/div[2]/div[1]/div/input[1]"));
+                WebElement addDescription = iFrame.findElement(By.xpath("div/div[2]/div/div[1]/div[2]/div[2]/div[2]/div[1]/div/input[2]"));
+                
+                addId.sendKeys(data[0]);
+                addDescription.sendKeys(data[2]);
+                                
+                WebElement updateRow = iFrame.findElement(By.xpath("div/div[2]/div/div[1]/div[2]/div[2]/div[2]/div[3]/div/div/table/tbody/tr/td[1]"));
+                Thread.sleep(2000);
+                updateRow.click();
+                
+                flagAdd = true;
+                break;
+            }		
+        }
+        return flagAdd;
+  	}
+  	
+  	public WebElement editPMTable(String nameTable, Boolean keepData, String nameField, String labelField, String typeField, String longField, Boolean nullField, Boolean keyField, Boolean autoincrementField) throws Exception{		
+  			
+  			goToSettings();
+  			Thread.sleep(3000);
+        Browser.driver().switchTo().defaultContent();
+        Browser.driver().switchTo().frame("adminFrame");
+        
+        WebElement divPMT = Browser.driver().findElement(By.id("settings"));
+  			WebElement PMT = divPMT.findElement(By.xpath("//div/div/ul/div/li[11]"));
+  			PMT.click();
+  			
+        Browser.driver().switchTo().frame("setup-frame");
+        
+  			WebElement divFilas = Browser.driver().findElement(By.className("x-grid3-body"));
+        List<WebElement> divRows = divFilas.findElements(By.tagName("div"));
+        
+  			for(WebElement divs:divRows)
+        {
+            if ( (divs.getAttribute("class").indexOf ("x-grid3-row") > -1) && 
+                 (divs.getAttribute("innerHTML").indexOf (nameTable) > -1) ) {
+                divs.click();
+                Thread.sleep(2000);
+                WebElement divPMTable = Browser.driver().findElement(By.id("infoGrid"));
+                WebElement buttonsPMTable = divPMTable.findElement(By.xpath("div[2]/div"));
+                WebElement editPMT = buttonsPMTable.findElement(By.xpath("div/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[2]/em/button"));
+                editPMT.click();
+                Thread.sleep(3000);
+                break;
+            }									 
+        }
+        if(keepData == true) {
+         		WebElement frmDetails = Browser.driver().findElement(By.id("frmDetails"));	
+        		WebElement keepDataCheck = frmDetails.findElement(By.id("chkKeepData"));
+        		keepDataCheck.click();
+        }
+        
+        Thread.sleep(2000);
+  			
+  			addField(nameField,labelField,typeField,longField,nullField,keyField,autoincrementField);
+  			WebElement updateEdit = Browser.driver().findElement(By.xpath("html/body/div[3]/div/div/div/table/tbody/tr/td[2]/table/tbody/tr/td/table/tbody/tr/td/table/tbody/tr[2]/td[2]/em/button"));
+        updateEdit.click();
+        Thread.sleep(1000);
+        
+        if(keepData != true) {
+        	WebElement yesUpdate = Browser.driver().findElement(By.xpath("/html/body/div[12]/div[2]/div[2]/div/div/div/div/table/tbody/tr/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td[2]/em/button"));
+        	yesUpdate.click();
+        }
+        WebElement verif = verifyDataPMTable("TESTTABLE");
+        return verif;
+  	 }   
+  	 
+     public WebElement verifyDataPMTable(String nameTable) throws Exception{		
+  			goToSettings();
+  			Thread.sleep(3000);
+        Browser.driver().switchTo().defaultContent();
+        Browser.driver().switchTo().frame("adminFrame");
+        
+        WebElement divPMT = Browser.driver().findElement(By.id("settings"));
+  			WebElement PMT = divPMT.findElement(By.xpath("//div/div/ul/div/li[11]"));
+  			PMT.click();
+  			
+        Browser.driver().switchTo().frame("setup-frame");
+  			
+  			WebElement divFilas2 = Browser.driver().findElement(By.className("x-grid3-body"));
+        List<WebElement> divRows2 = divFilas2.findElements(By.tagName("div"));
+        
+  			for(WebElement divs2:divRows2)
+        {
+            if ( (divs2.getAttribute("class").indexOf ("x-grid3-row") > -1) && 
+                 (divs2.getAttribute("innerHTML").indexOf (nameTable) > -1) ) {
+                divs2.click();
+                Thread.sleep(2000);
+                WebElement divPMTable2 = Browser.driver().findElement(By.id("infoGrid"));
+                WebElement buttonsPMTable2 = divPMTable2.findElement(By.xpath("div[2]/div"));
+                WebElement dataPMT2 = buttonsPMTable2.findElement(By.xpath("div/table/tbody/tr/td[1]/table/tbody/tr/td[5]/table/tbody/tr[2]/td[2]/em/button"));
+                
+                dataPMT2.click();
+                Thread.sleep(2000);
+                break;
+            }									 
+        }
+  			
+  			Browser.driver().switchTo().frame("mif-comp-1056");
+        WebElement iFrame = Browser.driver().findElement(By.id("infoGrid"));
+  			WebElement numberRow = iFrame.findElement(By.xpath("div/div[3]/div/table/tbody/tr/td[2]/table/tbody/tr/td[1]/table/tbody/tr/td/div"));
+  			
+  			return numberRow;
+  	}
+  	
   	public int countRoles() throws Exception{
         goToUsers();
         Thread.sleep(3000);
@@ -179,7 +352,6 @@ public class Admin extends Main{
 				    }
 				}
 				return count;
-        //System.out.println("LAS FILAS  "+count);
     }
     
     public static void activePlugin(String namePlugin, Boolean flagActive) throws Exception{
