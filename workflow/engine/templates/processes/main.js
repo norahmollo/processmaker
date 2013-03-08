@@ -627,7 +627,7 @@ deleteProcess = function(){
         errMsg += e + '<br/>';
       }
       Ext.MessageBox.show({
-        title: 'Error',
+        title: _('ID_ERROR'),
         msg: errMsg,
         buttons: Ext.MessageBox.OK,
         icon: Ext.MessageBox.ERROR

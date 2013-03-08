@@ -168,7 +168,7 @@
           }
         }
         if (!http_request){
-          alert('This browser is not supported.');
+          alert( _('ID_BROWSER_NOT_SUPPORTED') );
           return false;
         }
         
@@ -215,7 +215,7 @@
           }
         }
         if (!http_request){
-          alert('This browser is not supported.');
+          alert( _('ID_BROWSER_NOT_SUPPORTED') );
           return false;
         }
         

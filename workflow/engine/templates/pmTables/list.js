@@ -345,7 +345,7 @@ Ext.onReady(function(){
       listeners: {
         rowdblclick: EditPMTable,
         render: function(){
-          this.loadMask = new Ext.LoadMask(this.body, {msg:'loading'});
+          this.loadMask = new Ext.LoadMask(this.body, {msg: _('ID_LOADING_GRID')});
         }
       },
       view: new Ext.grid.GroupingView({

@@ -156,7 +156,7 @@ Ext.onReady(function(){
       {header: _('ID_ROLE'), dataIndex: 'USR_ROLE', width: 50, hidden:false, align:'left'},
       {header: _('ID_STATUS'), dataIndex: 'USR_STATUS', width: 50, hidden: true, align: 'center', renderer: render_status},
       {
-        header: 'User experience',
+        header: _('ID_USER_EXPERIENCE'),
         dataIndex: 'USR_UX',
         width: 50,
         editor: new Ext.form.ComboBox({

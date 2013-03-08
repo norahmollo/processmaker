@@ -532,7 +532,7 @@ UpdateSupervisor = function(){
 render_status = function(v){
   switch(v){
   case 'ACTIVE': return '<font color="green">' + _('ID_ACTIVE') + '</font>'; break;
-  case 'INACTIVE': return '<font color="red">' + _('ID_INACTIVE') + '</font>';; break;
-  case 'VACATION': return '<font color="blue">' + _('ID_VACATION') + '</font>';; break;
+  case 'INACTIVE': return '<font color="red">' + _('ID_INACTIVE') + '</font>'; break;
+  case 'VACATION': return '<font color="blue">' + _('ID_VACATION') + '</font>'; break;
   }
 };
