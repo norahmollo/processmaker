@@ -345,8 +345,8 @@ try {
             require_once 'classes/model/LoginLog.php';
             require_once 'classes/model/Department.php';
             require_once 'classes/model/AppCacheView.php';
-            require_once PATH_RBAC . "model/Roles.php";
-            require_once ("classes/model/Content.php");
+            require_once PATH_RBAC . 'model/Roles.php';
+            require_once ('classes/model/Content.php');
 
             global $RBAC;
 
@@ -436,7 +436,6 @@ try {
             $Department = new Department();
             $aDepart = $Department->getAllDepartmentsByUser();
             $aAuthSources = $RBAC->getAllAuthSourcesByUser();
-            $uRole = Array();
 
             require_once PATH_CONTROLLERS . 'adminProxy.php';
             $uxList = adminProxy::getUxTypesList();
@@ -446,15 +445,10 @@ try {
                 $row = $oDataset->getRow();
 
                 $oRoles = new Roles();
-                $uRole = $oRoles->getRolUidByCode($row['USR_ROLE']);
+                $uRole = Array();
+                $uRole = $oRoles->loadByCode($row['USR_ROLE']);
 
-                if($uRole){
-                    $content = new Content();
-                    $rNames = $content->getContentById($uRole);
-                }
-
-                $row['USR_ROLE'] = isset($rNames)? $rNames : '';
-
+                $row['USR_ROLE'] = isset($uRole)? $uRole['ROL_NAME'] : $uRole['USR_ROLE'];
                 $row['DUE_DATE_OK'] = (date('Y-m-d') > date('Y-m-d', strtotime($row['USR_DUE_DATE']))) ? 0 : 1;
                 $row['LAST_LOGIN'] = isset($aLogin[$row['USR_UID']]) ? $aLogin[$row['USR_UID']] : '';
                 $row['TOTAL_CASES'] = isset($aCases[$row['USR_UID']]) ? $aCases[$row['USR_UID']] : 0;

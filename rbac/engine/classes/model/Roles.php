@@ -343,22 +343,6 @@ class Roles extends BaseRoles {
         return $ret;
     }
 
-    function getRolUidByCode($ROL_CODE) {
-        $oCriteria = new Criteria('rbac');
-        $oCriteria->addSelectColumn(RolesPeer::ROL_UID);
-        $oCriteria->addSelectColumn(RolesPeer::ROL_CODE);
-
-        $oCriteria->add(RolesPeer::ROL_CODE, $ROL_CODE);
-
-        $result = RolesPeer::doSelectRS($oCriteria);
-        $result->setFetchmode(ResultSet::FETCHMODE_ASSOC);
-        $result->next();
-        $row = $result->getRow();
-        $code = $row['ROL_UID'];
-
-        return $code;
-    }
-
     //Added by Enrique at Feb 9th, 2011
     //Gets number of users by role
     function getAllUsersByRole(){
