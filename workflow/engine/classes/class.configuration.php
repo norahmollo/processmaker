@@ -565,7 +565,6 @@ class Configurations // extends Configuration
                 }
                 
                 $langLocate = SYS_LANG;
-                
                 require_once 'model/Language.php';
                 $oLang = new Language();
                 $aLang = $oLang->findLocationByLanId(SYS_LANG);
