@@ -1664,7 +1664,6 @@ class processMap
     }
 
     /*
-     *
      * Add a new guide
      * @param string $sProcessUID
      * @param integer $iPosition
