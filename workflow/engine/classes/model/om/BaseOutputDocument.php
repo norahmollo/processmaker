@@ -148,11 +148,10 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
     protected $out_doc_pdf_security_permissions = '';
 
     /**
-     * The value for the out_doc_open_type.
+     * The value for the out_doc_open_type field.
      * @var        int
      */
     protected $out_doc_open_type = 0;
-
 
     /**
      * Flag to prevent endless save loop, if this object is referenced
@@ -398,6 +397,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
 
         return $this->out_doc_open_type;
     }
+
     /**
      * Set the value of [out_doc_uid] column.
      * 
@@ -846,6 +846,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
      */
     public function setOutDocOpenType($v)
     {
+
         // Since the native PHP type for this column is integer,
         // we will cast the input value to an int (if it is not).
         if ($v !== null && !is_int($v) && is_numeric($v)) {
@@ -923,7 +924,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
             $this->setNew(false);
 
             // FIXME - using NUM_COLUMNS may be clearer.
-            return $startcol + 20; // 20 = OutputDocumentPeer::NUM_COLUMNS - OutputDocumentPeer::NUM_LAZY_LOAD_COLUMNS).
+            return $startcol + 21; // 21 = OutputDocumentPeer::NUM_COLUMNS - OutputDocumentPeer::NUM_LAZY_LOAD_COLUMNS).
 
         } catch (Exception $e) {
             throw new PropelException("Error populating OutputDocument object", $e);
@@ -971,7 +972,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
      * @see        doSave()
      */
     public function save($con = null)
-    {   
+    {
         if ($this->isDeleted()) {
             throw new PropelException("You cannot save an object that has been deleted.");
         }
@@ -1003,7 +1004,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
      * @see        save()
      */
     protected function doSave($con)
-    {   
+    {
         $affectedRows = 0; // initialize var to track total num of affected rows
         if (!$this->alreadyInSave) {
             $this->alreadyInSave = true;
@@ -1527,6 +1528,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
             $criteria->add(OutputDocumentPeer::OUT_DOC_OPEN_TYPE, $this->out_doc_open_type);
         }
 
+
         return $criteria;
     }
 
@@ -1619,6 +1621,7 @@ abstract class BaseOutputDocument extends BaseObject implements Persistent
         $copyObj->setOutDocPdfSecurityPermissions($this->out_doc_pdf_security_permissions);
 
         $copyObj->setOutDocOpenType($this->out_doc_open_type);
+
 
         $copyObj->setNew(true);
 

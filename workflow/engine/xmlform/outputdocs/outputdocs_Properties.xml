@@ -87,11 +87,9 @@
 <OUT_DOC_PDF_SECURITY_ENABLED type="dropdown">
   <en>PDF Security<option name="0">Disabled</option><option name="1">Enabled</option></en>
 </OUT_DOC_PDF_SECURITY_ENABLED>
-
 <OUT_DOC_OPEN_TYPE type="dropdown">
   <en>By clicking on the generated file link<option name="0">Download the file</option><option name="1">Open the file</option></en>
 </OUT_DOC_OPEN_TYPE>
-
 <OUT_DOC_PDF_SECURITY_OPEN_PASSWORD type="password"  >
   <en>Open Password</en>
 </OUT_DOC_PDF_SECURITY_OPEN_PASSWORD>
