@@ -12,7 +12,7 @@ if (!isset($_SESSION['USER_LOGGED'])) {
         die();
     }
 }
-/**
+/*
  * cases_ShowOutputDocument.php
  *
  * ProcessMaker Open Source Edition

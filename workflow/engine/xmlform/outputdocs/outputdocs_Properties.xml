@@ -118,7 +118,6 @@
 </ACCEPT>
 
 <JS type="JavaScript"><![CDATA[
-
 var _oVarsPanel_;
 var showDynaformsFormVars = function(sFieldName, sAjaxServer, sProcess, sSymbol) {
   _oVarsPanel_ = new leimnud.module.panel();
@@ -196,9 +195,7 @@ var verifyTitle = function(oForm)
 	    outputdocsPropertiesSave(oForm);
 	  }
   }
-
 }
-
 
 function cancel(){
     currentPopupWindow.remove();
@@ -227,13 +224,11 @@ leimnud.event.add(getField('OUT_DOC_GENERATE'), 'change', function() {
   showPdfSecuritySwitch();
 });
 
-
   leimnud.event.add(getField('OUT_DOC_PDF_SECURITY_ENABLED'), 'change', function() {
   togglePDFSecurity();
 });
 
 showPdfSecuritySwitch();
 togglePDFSecurity();
-
 ]]></JS>
 </dynaForm>
