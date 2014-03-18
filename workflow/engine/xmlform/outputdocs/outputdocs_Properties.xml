@@ -91,9 +91,11 @@
 <OUT_DOC_PDF_SECURITY_OPEN_PASSWORD type="password"  >
   <en>Open Password</en>
 </OUT_DOC_PDF_SECURITY_OPEN_PASSWORD>
+
 <OUT_DOC_PDF_SECURITY_OWNER_PASSWORD type="password" >
   <en>Owner Password</en>
 </OUT_DOC_PDF_SECURITY_OWNER_PASSWORD>
+
 <OUT_DOC_PDF_SECURITY_PERMISSIONS type="listbox" mode="edit" options="Array">
   <en>Allowed Permissions
   <option name='print'>Print</option><!--print-->
