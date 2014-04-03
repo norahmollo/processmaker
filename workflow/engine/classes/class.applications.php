@@ -499,7 +499,7 @@ class Applications
         
         $oDataset->setFetchmode( ResultSet::FETCHMODE_ASSOC );
         $oDataset->next();
-//g::pr($oDataset);
+
         $result = array ();
         $result['totalCount'] = $totalCount;
         $rows = array ();
