@@ -532,13 +532,11 @@ class Applications
               }*/
 
             //Current delegation (*)
-            //if (($action == "sent" || $action == "search" || $action == "simple_search" || $action == "to_revise" || $action == "to_reassign") && ($status != "TO_DO")) {
             if (($action == "sent" || $action == "simple_search" || $action == "to_revise" || $action == "to_reassign") && ($status != "TO_DO")) {    
                 //Current task
                 $aRow["APP_TAS_TITLE"] = $aRow["APPCVCR_APP_TAS_TITLE"];
 
                 //Current user
-                //if ($action != "to_reassign" ) {
                 if (($action != "to_reassign") && ($action != "search")) {
                     $aRow["USR_UID"] = $aRow["USRCR_USR_UID"];
                     $aRow["USR_FIRSTNAME"] = $aRow["USRCR_USR_FIRSTNAME"];

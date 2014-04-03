@@ -1054,7 +1054,6 @@ class AppCacheView extends BaseAppCacheView
             //Completed - getCompleted()
             $criteria->addGroupByColumn(AppCacheViewPeer::APP_UID);
             $criteria->addGroupByColumn(AppCacheViewPeer::APP_TAS_TITLE);
-            //$criteria->addGroupByColumn(AppCacheViewPeer::USR_UID);
         }
 
         return $criteria;
