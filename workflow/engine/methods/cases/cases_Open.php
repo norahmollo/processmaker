@@ -187,7 +187,7 @@ try {
 
                 $_SESSION['APPLICATION'] = $sAppUid;
                 
-                if ($_action == 'search') {
+                if ($_action == 'search') { //for advanced search list
                     $_SESSION['INDEX'] = $iDelIndex;
                 } else {
                     $_SESSION['INDEX'] = $row['DEL_INDEX'];

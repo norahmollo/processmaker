@@ -532,7 +532,7 @@ class Applications
              $maxDataset->close();
              }*/
 
-            //Current delegation (*)
+            //Current delegation
             if (($action == "sent" || $action == "simple_search" || $action == "to_revise" || $action == "to_reassign") && ($status != "TO_DO")) {    
                 //Current task
                 $aRow["APP_TAS_TITLE"] = $aRow["APPCVCR_APP_TAS_TITLE"];
