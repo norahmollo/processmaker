@@ -508,11 +508,11 @@ class Applications
         while ($aRow = $oDataset->getRow()) {
             //$aRow = $oAppCache->replaceRowUserData($aRow);
 
-            /**
+            /*
              * For participated cases, we want the last step in the case, not only the last step this user participated. To do that we get every case information again for the last step. (This could be solved by a subquery, but Propel might not support it and subqueries can be slower for larger
              * datasets).
-             **/
-            
+             */
+
              /*if ($action == 'sent' || $action == 'search') {
              $maxCriteria = new Criteria('workflow');
              $maxCriteria->add(AppCacheViewPeer::APP_UID, $aRow['APP_UID'], Criteria::EQUAL);
@@ -530,7 +530,7 @@ class Applications
              }
 
              $maxDataset->close();
-              }*/
+             }*/
 
             //Current delegation (*)
             if (($action == "sent" || $action == "simple_search" || $action == "to_revise" || $action == "to_reassign") && ($status != "TO_DO")) {    
