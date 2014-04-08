@@ -61,8 +61,8 @@ class Publisher
      * @param $arrData
      * @param $strTarget
      * @return void
-     *
-     */
+     **/
+
     public function AddContent ($strType = "form", $strLayout = "form", $strName = "", $strContent = "", $arrData = null, $strTarget = "", $ajaxServer = '', $mode = '', $bAbsolutePath = false)
     {
         if ($mode != '') {
