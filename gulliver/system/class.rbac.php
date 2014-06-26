@@ -266,7 +266,7 @@ class RBAC
      */
     public function VerifyWithOtherAuthenticationSource ($sAuthType, $aUserFields, $strPass)
     {
-        if ($sAuthType != 'ldapadvanced') {
+        if ($sAuthType == '' || $sAuthType == 'MYSQL') {
             //check if the user is active
             if ($aUserFields['USR_STATUS'] != 1) {
                 return - 3; //inactive user
